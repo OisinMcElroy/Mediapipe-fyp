@@ -36,12 +36,12 @@ while cap.isOpened():
     for hand_landmarks in results.multi_hand_landmarks:
 
       #Drawing landmarks to the image consumes too much memory
-      #mp_drawing.draw_landmarks(
-      #    image,
-      #    hand_landmarks,
-      #    mp_hands.HAND_CONNECTIONS,
-      #    mp_drawing_styles.get_default_hand_landmarks_style(),
-      #    mp_drawing_styles.get_default_hand_connections_style())
+      mp_drawing.draw_landmarks(
+          image,
+          hand_landmarks,
+          mp_hands.HAND_CONNECTIONS,
+          mp_drawing_styles.get_default_hand_landmarks_style(),
+          mp_drawing_styles.get_default_hand_connections_style())
 
       # If the z of the point on the tip of the index finger is increasing, moving away from the camera
       if(previousIndexZValue<hand_landmarks.landmark[8].z):
