@@ -5,8 +5,8 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-previousWristZValue = 0.00
-previousElbowZValue = 0.00
+previousWristYValue = 0.00
+previousElbowYValue = 0.00
 constantBeckoned = 0
 constantShooed = 0
 totalSamples = 0
@@ -28,10 +28,10 @@ while cap.isOpened():
     min_tracking_confidence=0.5).process(image)
 
   if results.pose_landmarks:
-      if(previousWristZValue<results.pose_landmarks.landmark[15].z):
+      if(previousWristYValue<results.pose_landmarks.landmark[15].y):
           #print("Am I being Beckoned?")
           constantBeckoned += 1
-      elif(previousElbowZValue>results.pose_landmarks.landmark[13].z):
+      elif(previousWristYValue>results.pose_landmarks.landmark[15].y):
           #print("Am I being Shooed?")
           constantShooed += 1
       if(totalSamples%10 == 0):
@@ -39,9 +39,9 @@ while cap.isOpened():
         else: print("I am being Shooed")
         constantBeckoned = 0
         constantShooed = 0
-
-      previousIndexZValue = results.pose_landmarks.landmark[8].z
-      previousWristZValue = results.pose_landmarks.landmark[0].z
+        
+      previousWristYValue = results.pose_landmarks.landmark[15].y
+      previousElbowYValue = results.pose_landmarks.landmark[13].y
       totalSamples += 1
 
   # Draw the pose annotation on the image.
